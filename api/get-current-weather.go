@@ -13,7 +13,7 @@ import (
 	"github.com/weather-redis-api/internal/types"
 )
 
-func Gin() {
+func WeatherServer() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Println("No .env file found, using defaults.")
@@ -32,8 +32,7 @@ func Gin() {
 		if apiKey == "" {
 			log.Fatal("OPENWEATHER_API_KEY is not set in .env")
 		}
-		fmt.Println(apiKey)
-
+		
 		url := fmt.Sprintf("https://api.openweathermap.org/data/3.0/onecall?lat=%s&lon=%s&appid=%s", lat, lon, apiKey)
 
 		fmt.Printf("\nurl: %v\n", url)

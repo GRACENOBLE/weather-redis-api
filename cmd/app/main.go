@@ -6,5 +6,5 @@ import "github.com/weather-redis-api/api"
 
 func main(){
 	//api.Connect()
-	api.Gin()
+	api.WeatherServer()
 }
