@@ -89,7 +89,7 @@ type WeatherResponse struct {
 			Icon        string `json:"icon"`
 		} `json:"weather"`
 		Clouds int     `json:"clouds"`
-		Pop    int     `json:"pop"`
+		Pop    float64 `json:"pop"`
 		Rain   float64 `json:"rain,omitempty"`
 		Uvi    float64 `json:"uvi"`
 	} `json:"daily"`
