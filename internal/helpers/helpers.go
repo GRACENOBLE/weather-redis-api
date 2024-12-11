@@ -14,7 +14,9 @@ func GetRedisValueByKey(key string) *types.WeatherResponse {
 	var response types.WeatherResponse
 
 	rdb := redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
+		Addr: "https://redis-production-0593.up.railway.app/:6379",
+		Password: "hFDMGHeTNheyZWCZnzYVDbdNKytQsOJl",
+		DB: 0,
 	})
 
 	ctx := context.Background()
