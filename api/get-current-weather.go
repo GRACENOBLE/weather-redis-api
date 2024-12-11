@@ -32,13 +32,13 @@ func WeatherServer() {
 	ctx := context.Background()
 
 	r.GET("/weather", func(c *gin.Context) {
+		lat := c.Query("lat") //"0.3976677749854413"
+		lon := c.Query("lon") //"32.6378629998115"
+		key := lat + lon
 
-		dbData := helpers.GetRedisValueByKey("weatherToday")
+		dbData := helpers.GetRedisValueByKey(key)
 
 		if dbData == nil {
-
-			lat := c.Query("lat") //"0.3976677749854413"
-			lon := c.Query("lon") //"32.6378629998115"
 
 			if lat == "" || lon == "" {
 				c.JSON(http.StatusBadRequest, gin.H{"error": "lat and lon are required"})
@@ -73,12 +73,12 @@ func WeatherServer() {
 				return
 			} else {
 
-				if err := rdb.Set(ctx, "weatherToday", bodyBytes, 30*time.Minute).Err(); err != nil {
+				if err := rdb.Set(ctx, key, bodyBytes, 30*time.Minute).Err(); err != nil {
 					log.Fatalf("Error setting key:%v", err)
 				}
 
 				if err := json.Unmarshal(bodyBytes, &weather); err != nil {
-					log.Printf(err.Error())
+					log.Printf("%v",err.Error())
 				}
 
 				fmt.Printf("Key set successfully!")
